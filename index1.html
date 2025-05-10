@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SoftSell - The easiest way to sell your unused software licenses for cash. Get instant valuations and fast payments.">
+    <title>SoftSell | Sell Your Unused Software Licenses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+        }
+        
+        .chat-widget {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .testimonial-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .dark .testimonial-card {
+            background-color: #1e293b;
+        }
+        
+        .dark .how-it-works-card {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            ring: none;
+        }
+        
+        .error-message {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .error-message.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+    <!-- Header/Navigation -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white">
+                    <i class="fas fa-box-open text-xl"></i>
+                </div>
+                <span class="text-xl font-bold">SoftSell</span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#how-it-works" class="hover:text-primary-500 transition">How It Works</a>
+                <a href="#why-choose-us" class="hover:text-primary-500 transition">Why Choose Us</a>
+                <a href="#testimonials" class="hover:text-primary-500 transition">Testimonials</a>
+                <a href="#contact" class="hover:text-primary-500 transition">Contact</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <a href="#contact" class="hidden md:block bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition">
+                    Get a Quote
+                </a>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#how-it-works" class="py-2 hover:text-primary-500 transition">How It Works</a>
+                <a href="#why-choose-us" class="py-2 hover:text-primary-500 transition">Why Choose Us</a>
+                <a href="#testimonials" class="py-2 hover:text-primary-500 transition">Testimonials</a>
+                <a href="#contact" class="py-2 hover:text-primary-500 transition">Contact</a>
+                <a href="#contact" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium text-center transition">
+                    Get a Quote
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white">
+        <div class="container mx-auto px-4 py-20 md:py-32">
+            <div class="max-w-3xl mx-auto text-center animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Turn Unused Software Into Cash</h1>
+                <p class="text-xl md:text-2xl mb-10 opacity-90">SoftSell makes it easy to sell your unused software licenses. Get instant valuations and fast payments with our secure platform.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#contact" class="bg-white text-primary-700 hover:bg-gray-100 px-8 py-4 rounded-lg font-bold text-lg transition shadow-lg">
+                        Sell My Licenses
+                    </a>
+                    <a href="#how-it-works" class="bg-transparent border-2 border-white hover:bg-white/10 px-8 py-4 rounded-lg font-bold text-lg transition">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Selling your unused software licenses has never been easier. Just follow these simple steps.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="how-it-works-card bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300 animate-slide-up" style="animation-delay: 0.1s;">
+                    <div class="w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mb-6">
+                        <i class="fas fa-upload text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">1. Upload License Details</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Tell us about your software license - product name, version, quantity, and purchase date. No sensitive information required.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="how-it-works-card bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300 animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mb-6">
+                        <i class="fas fa-search-dollar text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">2. Get Instant Valuation</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Our algorithm analyzes market demand and provides a fair price estimate within minutes.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="how-it-works-card bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm transition-all duration-300 animate-slide-up" style="animation-delay: 0.3s;">
+                    <div class="w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mb-6">
+                        <i class="fas fa-wallet text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">3. Get Paid Securely</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Once your license is verified, we transfer funds directly to your bank account or PayPal within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-choose-us" class="py-20 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose SoftSell</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">We're revolutionizing the way businesses monetize their unused software assets.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition hover:shadow-md">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Lightning Fast</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Get valuations in minutes and payments within 24 hours after verification.</p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition hover:shadow-md">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Secure Transactions</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Bank-level encryption and secure escrow services protect every transaction.</p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition hover:shadow-md">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Best Prices</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Our competitive marketplace ensures you get top dollar for your licenses.</p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 transition hover:shadow-md">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mb-4">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">Dedicated Support</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Our team is available 24/7 to answer your questions and guide you through the process.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Don't just take our word for it. Here's what our customers have to say.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mr-4">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">IT Director, TechForward Inc.</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 italic">"SoftSell helped us recover over $50,000 in unused Adobe licenses. The process was incredibly smooth and their customer support was exceptional. We'll definitely use them again for our future license management needs."</p>
+                    <div class="mt-4 flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm hover:shadow-md">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 mr-4">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Michael Chen</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">CFO, DataSystems LLC</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 italic">"As a CFO, I'm always looking for ways to optimize our software spend. SoftSell provided an excellent return on our unused Microsoft licenses with minimal effort on our part. The entire process took less than 48 hours from listing to payment."</p>
+                    <div class="mt-4 flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/Lead Form Section -->
+    <section id="contact" class="py-20 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-gray-50 dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 gradient-bg text-white p-10 flex flex-col justify-center">
+                        <h2 class="text-3xl font-bold mb-4">Ready to Sell Your Licenses?</h2>
+                        <p class="mb-6 opacity-90">Fill out the form and we'll get back to you within 24 hours with a valuation of your software licenses.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">+1 (800) 555-0192</p>
+                                    <p class="text-sm opacity-80">Sales Team</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">sales@softsell.com</p>
+                                    <p class="text-sm opacity-80">Email Us</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-4">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Mon-Fri, 9am-6pm EST</p>
+                                    <p class="text-sm opacity-80">Business Hours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 p-10">
+                        <h3 class="text-2xl font-bold mb-6">Get a Free Valuation</h3>
+                        <form id="contact-form" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-1">Full Name</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                <div class="error-message text-red-500 text-sm mt-1" id="name-error">Please enter your name</div>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-1">Email Address</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                <div class="error-message text-red-500 text-sm mt-1" id="email-error">Please enter a valid email</div>
+                            </div>
+                            
+                            <div>
+                                <label for="company" class="block text-sm font-medium mb-1">Company Name</label>
+                                <input type="text" id="company" name="company" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label for="license-type" class="block text-sm font-medium mb-1">License Type</label>
+                                <select id="license-type" name="license-type" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                                    <option value="">Select License Type</option>
+                                    <option value="adobe">Adobe Creative Cloud</option>
+                                    <option value="microsoft">Microsoft Office/Windows</option>
+                                    <option value="autodesk">Autodesk</option>
+                                    <option value="vmware">VMware</option>
+                                    <option value="other">Other Software</option>
+                                </select>
+                                <div class="error-message text-red-500 text-sm mt-1" id="license-type-error">Please select a license type</div>
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium mb-1">Message</label>
+                                <textarea id="message" name="message" rows="3" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition">
+                                Submit Request
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white">
+                            <i class="fas fa-box-open text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">SoftSell</span>
+                    </div>
+                    <p class="mb-4">The easiest way to sell your unused software licenses for cash.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition">API</a></li>
+                        <li><a href="#" class="hover:text-white transition">Status</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition">Cookie Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition">GDPR</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p>© 2023 SoftSell. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition">Privacy</a>
+                    <a href="#" class="hover:text-white transition">Terms</a>
+                    <a href="#" class="hover:text-white transition">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chat Widget -->
+    <div id="chat-widget" class="fixed bottom-6 right-6 w-16 h-16 rounded-full gradient-bg flex items-center justify-center text-white shadow-lg cursor-pointer z-50" onclick="toggleChat()">
+        <i class="fas fa-robot text-2xl"></i>
+    </div>
+    
+    <div id="chat-container" class="fixed bottom-24 right-6 w-80 bg-white dark:bg-gray-800 rounded-t-xl rounded-bl-xl shadow-xl overflow-hidden z-50 hidden transition-all duration-300 transform origin-bottom-right">
+        <div class="bg-primary-600 text-white p-4 flex justify-between items-center">
+            <h3 class="font-bold">SoftSell Assistant</h3>
+            <button onclick="toggleChat()" class="text-white hover:text-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="h-64 overflow-y-auto p-4" id="chat-messages">
+            <div class="mb-4">
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 inline-block max-w-xs">
+                    <p>Hello! I'm your SoftSell assistant. How can I help you today?</p>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 inline-block max-w-xs">
+                    <p>Here are some common questions:</p>
+                    <ul class="list-disc pl-5 mt-2">
+                        <li class="mb-1"><a href="#" class="text-primary-600 dark:text-primary-400 hover:underline" onclick="sendQuestion(this)">How do I sell my license?</a></li>
+                        <li class="mb-1"><a href="#" class="text-primary-600 dark:text-primary-400 hover:underline" onclick="sendQuestion(this)">What information do I need to provide?</a></li>
+                        <li class="mb-1"><a href="#" class="text-primary-600 dark:text-primary-400 hover:underline" onclick="sendQuestion(this)">How long does the process take?</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-3 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex">
+                <input type="text" id="chat-input" placeholder="Type your question..." class="flex-grow px-3 py-2 rounded-l-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                <button onclick="sendMessage()" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-r-lg">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved user preference, if any
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const theme = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+        
+        // Form validation
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Validate name
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('name-error');
+            if (!name.value.trim()) {
+                nameError.classList.add('show');
+                isValid = false;
+            } else {
+                nameError.classList.remove('show');
+            }
+            
+            // Validate email
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('email-error');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                emailError.classList.add('show');
+                isValid = false;
+            } else {
+                emailError.classList.remove('show');
+            }
+            
+            // Validate license type
+            const licenseType = document.getElementById('license-type');
+            const licenseTypeError = document.getElementById('license-type-error');
+            if (!licenseType.value) {
+                licenseTypeError.classList.add('show');
+                isValid = false;
+            } else {
+                licenseTypeError.classList.remove('show');
+            }
+            
+            if (isValid) {
+                // In a real app, you would submit the form here
+                alert('Thank you for your submission! We will contact you shortly with a valuation.');
+                contactForm.reset();
+            }
+        });
+        
+        // Chat widget functionality
+        function toggleChat() {
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.classList.toggle('hidden');
+        }
+        
+        function sendQuestion(link) {
+            const question = link.textContent;
+            document.getElementById('chat-input').value = question;
+            sendMessage();
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const messagesContainer = document.getElementById('chat-messages');
+                const userMessage = document.createElement('div');
+                userMessage.className = 'mb-4 text-right';
+                userMessage.innerHTML = `
+                    <div class="bg-primary-100 dark:bg-primary-900/30 rounded-lg p-3 inline-block max-w-xs">
+                        <p>${message}</p>
+                    </div>
+                `;
+                messagesContainer.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Scroll to bottom
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                // Simulate bot response after a delay
+                setTimeout(() => {
+                    const botResponse = document.createElement('div');
+                    botResponse.className = 'mb-4';
+                    
+                    let responseText = '';
+                    
+                    if (message.toLowerCase().includes('how do i sell') || message.toLowerCase().includes('process')) {
+                        responseText = 'To sell your license, simply fill out our contact form with details about your software license. Our team will review your submission and provide a valuation within 24 hours. Once accepted, we handle the entire sales process for you.';
+                    } else if (message.toLowerCase().includes('information') || message.toLowerCase().includes('provide')) {
+                        responseText = 'You\'ll need to provide the software name, version, quantity of licenses, purchase date, and proof of ownership (usually a receipt or invoice). No sensitive information like license keys is needed upfront.';
+                    } else if (message.toLowerCase().includes('how long') || message.toLowerCase().includes('time')) {
+                        responseText = 'The valuation process typically takes less than 24 hours. Once you accept our offer, payment is processed within 1-3 business days after we verify the license details.';
+                    } else {
+                        responseText = 'I\'m sorry, I don\'t have enough information to answer that question. For more specific inquiries, please contact our support team at support@softsell.com or call us at (800) 555-0192.';
+                    }
+                    
+                    botResponse.innerHTML = `
+                        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-3 inline-block max-w-xs">
+                            <p>${responseText}</p>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(botResponse);
+                    
+                    // Scroll to bottom after response
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 1000);
+            }
+        }
+        
+        // Allow pressing Enter to send message
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
